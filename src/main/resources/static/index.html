@@ -2,8 +2,13 @@
 
 <html>
 <head>
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.1.0/css/bootstrap.min.css" integrity="sha384-9gVQ4dYFwwWSjIDZnLEWnxCjeSWFphJiwGPXr1jddIhOegiu1FwO5qRGvFXOdJZ4" crossorigin="anonymous">
+    <script src="https://code.jquery.com/jquery-3.3.1.slim.min.js" integrity="sha384-q8i/X+965DzO0rT7abK41JStQIAqVgRVzpbzo5smXKp4YfRvH+8abtTE1Pi6jizo" crossorigin="anonymous"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.0/umd/popper.min.js" integrity="sha384-cs/chFZiN24E4KMATLdqdvsezGxaGsi4hLGOzlXwp5UZB1LY//20VyM2taTB4QvJ" crossorigin="anonymous"></script>
+    <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.1.0/js/bootstrap.min.js" integrity="sha384-uefMccjFJAIv6A+rW+L4AHf99KvxDjWSu1z9VI8SKNVmz4sk7buKt/6v9KI65qnm" crossorigin="anonymous"></script>
+    <link rel="stylesheet" href="style.css">
 
-    <script type = "text/javascript">
+    <script type="text/javascript">
         function WebSocketTest() {
 
             if ("WebSocket" in window) {
@@ -11,9 +16,9 @@
 
                 // Let us open a web socket
                 // var ws = new WebSocket("ws://localhost:8088/counter");
-                var ws = new WebSocket("ws://192.168.0.87:8088/counter");
+                var ws = new WebSocket("ws://localhost:8088/counter");
 
-                ws.onopen = function() {
+                ws.onopen = function () {
 
                     // Web Socket is connected, send data using send()
                     ws.send("Message to send");
@@ -26,7 +31,7 @@
                     document.getElementById("img").src = "data:image/jpg;base64," + JSON.parse(received_msg).value;
                 };
 
-                ws.onclose = function() {
+                ws.onclose = function () {
 
                     // websocket is closed.
                     alert("Connection is closed...");
@@ -38,15 +43,14 @@
             }
         }
     </script>
-
 </head>
 
 <body>
-<div id = "sse">
-    <a href = "javascript:WebSocketTest()">Run WebSocket</a>
+<div class="container py-5 text-center" id="sse">
+    <a class="start-button bg-info" href="javascript:WebSocketTest()">Run WebSocket</a>
 </div>
 <!--<div id = "bgModel">-->
-    <!--<a href = "http://localhost:8080/updateBgModel">Update background model</a>-->
+<!--<a href = "http://localhost:8080/updateBgModel">Update background model</a>-->
 <!--</div>-->
 
 
