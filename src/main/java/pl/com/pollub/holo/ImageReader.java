@@ -7,6 +7,7 @@ import org.opencv.videoio.VideoCapture;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.scheduling.annotation.Scheduled;
 import org.springframework.stereotype.Component;
+import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
@@ -26,12 +27,13 @@ public class ImageReader {
     }
     Mat matrix;
     Mat bgModel;
-    VideoCapture cap;
+    VideoCapture cap = new VideoCapture();;
     ImageConverter converter = new ImageConverter();
     BackgroundSubtractorMOG2 sub = BackgroundSubstractor.createSubstrator();
 
     @RequestMapping("/updateBgModel")
     public void updateBgModel(){
+        cap.open(0);
         double tres = sub.getVarThreshold();
         bgModel = matrix;
         sub = BackgroundSubstractor.createSubstrator();
@@ -41,8 +43,6 @@ public class ImageReader {
 
     @Scheduled(fixedDelay = 1)
     public BufferedImage getOneFrame() {
-        cap = new VideoCapture();
-        cap.open(0);
         matrix = converter.getMatrix();
         try {
             cap.grab();
@@ -64,8 +64,8 @@ public class ImageReader {
         frameHandler.frameCallback(bufferdedImage);
         return bufferdedImage;
     }
-
-    public void setThreshold(int value){
+    @RequestMapping("/setThreshold/{tres}")
+    public void setThreshold(@PathVariable("tres") int value){
         BackgrundSubstractorConfigurator.setThreshold(sub, value);
     }
 }

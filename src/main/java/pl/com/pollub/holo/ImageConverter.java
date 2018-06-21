@@ -33,7 +33,12 @@ public class ImageConverter {
         this.matrix = mat;
         int width = mat.cols();
         int height = mat.rows();
-        return new BufferedImage(width, height, type);
+        try {
+            return new BufferedImage(width, height, type);
+        }
+        catch(Exception e){
+            return new BufferedImage(1,1, type);
+        }
     }
 
     BufferedImage getImage(Mat mat) {
