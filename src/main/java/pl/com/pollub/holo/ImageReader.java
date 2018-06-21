@@ -9,6 +9,8 @@ import org.springframework.scheduling.annotation.Scheduled;
 import org.springframework.stereotype.Component;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
+import pl.com.pollub.holo.opencv.BackgroundSubstractor;
+import pl.com.pollub.holo.opencv.BackgrundSubstractorConfigurator;
 
 import java.awt.image.BufferedImage;
 
