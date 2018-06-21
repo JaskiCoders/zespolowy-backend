@@ -9,12 +9,13 @@
     <link rel="stylesheet" href="style.css">
 
     <script type="text/javascript">
+
         function WebSocketTest() {
             if ("WebSocket" in window) {
                 document.getElementById("alert").innerText = "WebSocket is supported by your Browser!";
                 // Let us open a web socket
                 // var ws = new WebSocket("ws://localhost:8088/counter");
-                var ws = new WebSocket("ws://localhost:8088/counter");
+                var ws = new WebSocket("ws://localhost:8088/frame");
 
                 ws.onopen = function () {
 
@@ -26,7 +27,6 @@
 
                 ws.onmessage = function (evt) {
                     var received_msg = evt.data;
-                    console.log(received_msg);
                     document.getElementById("img").src = "data:image/jpg;base64," + JSON.parse(received_msg).value;
                 };
 
@@ -43,14 +43,38 @@
 </head>
 
 <body>
+<div class="slidecontainer">
+    <input  id="threshold" type="range" min="0" max="1000" value="500" class="slider">
+</div>
 <div class="container py-5 text-center" id="sse">
 
     <div id="alert" class="alert alert-primary" role="alert"></div>
 
     <a class="start-button bg-info" href="javascript:WebSocketTest()">Run WebSocket</a>
+    <button id="update" class="btn btn-warning" href="javascript:UpdateBgModel()">Update background model</button>
 
     <img id="img" src=""/>
 </div>
+<script type="text/javascript">
+    var slider = document.getElementById("threshold");
+    var updateButton = document.getElementById("update");
+    console.log(slider)
+    slider.onmouseup = function() {
+        var xmlHttp = new XMLHttpRequest();
+        xmlHttp.open( "GET", 'http://localhost:8088/setThreshold/'+slider.value, false );
+        console.log('Seting threshold to : '+slider.value)
+        xmlHttp.send( null );
+        return xmlHttp.responseText;
+    }
+    updateButton.onclick = function () {
+        var xmlHttp = new XMLHttpRequest();
+        xmlHttp.open( "GET", 'http://localhost:8088/updateBgModel/', false );
+        console.log('Bg model updated')
+        xmlHttp.send( null );
+        return xmlHttp.responseText;
+    }
 
+
+</script>
 </body>
 </html>

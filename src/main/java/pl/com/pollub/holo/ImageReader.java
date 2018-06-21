@@ -57,7 +57,6 @@ public class ImageReader {
 
         Mat fgMask = bgModel;
         sub.apply(matrix, fgMask,0);
-        System.out.println(sub.getVarThreshold());
         Mat output = new Mat();
         matrix.copyTo(output, fgMask);
         BufferedImage bufferdedImage = converter.getImage(output);
@@ -66,6 +65,7 @@ public class ImageReader {
     }
     @RequestMapping("/setThreshold/{tres}")
     public void setThreshold(@PathVariable("tres") int value){
+        System.out.println("Threshold is: "+value);
         BackgrundSubstractorConfigurator.setThreshold(sub, value);
     }
 }
