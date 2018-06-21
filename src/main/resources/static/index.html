@@ -10,10 +10,8 @@
 
     <script type="text/javascript">
         function WebSocketTest() {
-
             if ("WebSocket" in window) {
-                alert("WebSocket is supported by your Browser!");
-
+                document.getElementById("alert").innerText = "WebSocket is supported by your Browser!";
                 // Let us open a web socket
                 // var ws = new WebSocket("ws://localhost:8088/counter");
                 var ws = new WebSocket("ws://localhost:8088/counter");
@@ -22,7 +20,8 @@
 
                     // Web Socket is connected, send data using send()
                     ws.send("Message to send");
-                    alert("Message is sent...");
+
+                    document.getElementById("alert").innerText = "Message is sent...";
                 };
 
                 ws.onmessage = function (evt) {
@@ -32,12 +31,10 @@
                 };
 
                 ws.onclose = function () {
-
                     // websocket is closed.
-                    alert("Connection is closed...");
+                    document.getElementById("alert").innerText = "Connection is closed...";
                 };
             } else {
-
                 // The browser doesn't support WebSocket
                 alert("WebSocket NOT supported by your Browser!");
             }
@@ -47,14 +44,13 @@
 
 <body>
 <div class="container py-5 text-center" id="sse">
+
+    <div id="alert" class="alert alert-primary" role="alert"></div>
+
     <a class="start-button bg-info" href="javascript:WebSocketTest()">Run WebSocket</a>
+
+    <img id="img" src=""/>
 </div>
-<!--<div id = "bgModel">-->
-<!--<a href = "http://localhost:8080/updateBgModel">Update background model</a>-->
-<!--</div>-->
-
-
-<img id="img" src=""/>
 
 </body>
 </html>
