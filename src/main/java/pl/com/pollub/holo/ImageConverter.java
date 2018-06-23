@@ -9,10 +9,6 @@ import java.awt.image.WritableRaster;
 
 public class ImageConverter {
 
-    static{
-        System.loadLibrary(Core.NATIVE_LIBRARY_NAME);
-    }
-
     private Mat matrix = new Mat();
     private BufferedImage image;
 

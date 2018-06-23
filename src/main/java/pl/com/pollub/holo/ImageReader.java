@@ -25,9 +25,10 @@ public class ImageReader {
     static{
         System.loadLibrary(Core.NATIVE_LIBRARY_NAME);
     }
+
     Mat matrix;
     Mat bgModel;
-    VideoCapture cap = new VideoCapture();;
+    VideoCapture cap = new VideoCapture();
     ImageConverter converter = new ImageConverter();
     BackgroundSubtractorMOG2 sub = BackgroundSubstractor.createSubstrator();
 
