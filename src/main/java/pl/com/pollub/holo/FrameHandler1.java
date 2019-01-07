@@ -13,49 +13,43 @@ import java.io.ByteArrayOutputStream;
 import java.io.IOException;
 
 @Component
-@Slf4j
-public class FrameHandler extends TextWebSocketHandler {
+@Slf4j // klasa jest kopia klasy FrameHandler K.Mazur
+public class FrameHandler1 extends TextWebSocketHandler {
 
     private static final String CLOSE = "CLOSE";
 
     private WebSocketSession session;
 
-    // metoda wysylajaca informacje przy pomocy WebSc K.Mazur
     public void frameCallback(BufferedImage inputImage) {
 
-        if (session != null && session.isOpen()) { // jezeli polaczenie jest otwarte
+        if (session != null && session.isOpen()) {
             try {
-                session.setTextMessageSizeLimit(200000); // ustaw maksymalny limit wiadomosci
-                session.sendMessage(new TextMessage("{\"value\": \"" + convertImageToBase64(inputImage) +
-                        "\" " + ",\"timestamp\": \"" + System.currentTimeMillis() + "\"}")); // wyslij wiadomosc zamieniajac obrazek na Base64
+                session.setTextMessageSizeLimit(200000);
+                session.sendMessage(new TextMessage("{\"value\": \"" + convertImageToBase64(inputImage) + "\"}"));
             } catch (Exception e) {
-                log.debug("Exception during sending message: {}", e.getMessage()); // zaloguj wyjatek
             }
         }
     }
 
-    @Override // metoda wykonywana po zestawieniy polaczenia K.Mazur
+    @Override
     public void afterConnectionEstablished(WebSocketSession session) {
-        log.info("Connection established {}", session.getId());
         this.session = session;
     }
 
-    @Override // metoda wywolywana w momencie, gdy do naszego serwera dojdzie wiadomosc przez kanal WebSocket K.Mazur
+    @Override
     protected void handleTextMessage(WebSocketSession session, TextMessage message)
             throws Exception {
         if (CLOSE.equalsIgnoreCase(message.getPayload())) {
             session.close();
         } else {
-            log.info("Received:" + message.getPayload());
         }
     }
-    // metoda zamieniajaca obrazek na Base64 K.Mazur
+
     private String convertImageToBase64(BufferedImage inputImage) {
         ByteArrayOutputStream byteArrayOutputStream = new ByteArrayOutputStream();
         try {
             ImageIO.write(inputImage, "png", byteArrayOutputStream);
         } catch (IOException e) {
-            log.debug("Exception during converting image: {}", e.getMessage());
         }
         return DatatypeConverter.printBase64Binary(byteArrayOutputStream.toByteArray());
     }

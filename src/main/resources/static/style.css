@@ -1,3 +1,8 @@
+/*plik przygotowala Izabela Wasyluk*/
+body {
+    background-color: black;
+}
+
 .start-button {
     width: 200px;
     height: 200px;
@@ -12,37 +17,161 @@
     font-weight: bold;
     color: white;
 }
+
 .slidecontainer {
-    width: 100%;
+	width: 50%;
+	margin: 0 auto 0 auto;
 }
 
-.slider {
-    -webkit-appearance: none;
-    width: 100%;
-    height: 25px;
-    background: #d3d3d3;
-    outline: none;
-    opacity: 0.7;
-    -webkit-transition: .2s;
-    transition: opacity .2s;
+.image-container {
+	width: 250px;
+	height: 250px;
 }
 
-.slider:hover {
-    opacity: 1;
+.image {
+	width:250px;
+	height:250px;
 }
 
-.slider::-webkit-slider-thumb {
-    -webkit-appearance: none;
-    appearance: none;
-    width: 25px;
-    height: 25px;
-    background: #4CAF50;
-    cursor: pointer;
+input[type=range] {
+  -webkit-appearance: none;
+  width: 100%;
+  margin: 10px 0;
+}
+input[type=range]:focus {
+  outline: none;
+}
+input[type=range]::-webkit-slider-runnable-track {
+  width: 100%;
+  height: 4px;
+  cursor: pointer;
+  box-shadow: 1.6px 1.6px 1px #0b1100, 0px 0px 1.6px #1b2b00;
+  background: rgba(63, 182, 155, 0.87);
+  border-radius: 7.6px;
+  border: 0.4px solid #832b42;
+}
+input[type=range]::-webkit-slider-thumb {
+  box-shadow: 2.4px 2.4px 5.1px rgba(29, 74, 140, 0.99), 0px 0px 2.4px rgba(33, 85, 161, 0.99);
+  border: 1px solid rgba(33, 242, 238, 0.1);
+  height: 24px;
+  width: 24px;
+  border-radius: 7px;
+  background: #ffffff;
+  cursor: pointer;
+  -webkit-appearance: none;
+  margin-top: -10.4px;
+}
+input[type=range]:focus::-webkit-slider-runnable-track {
+  background: rgba(70, 191, 163, 0.87);
+}
+input[type=range]::-moz-range-track {
+  width: 100%;
+  height: 4px;
+  cursor: pointer;
+  box-shadow: 1.6px 1.6px 1px #0b1100, 0px 0px 1.6px #1b2b00;
+  background: rgba(63, 182, 155, 0.87);
+  border-radius: 7.6px;
+  border: 0.4px solid #832b42;
+}
+input[type=range]::-moz-range-thumb {
+  box-shadow: 2.4px 2.4px 5.1px rgba(29, 74, 140, 0.99), 0px 0px 2.4px rgba(33, 85, 161, 0.99);
+  border: 1px solid rgba(33, 242, 238, 0.1);
+  height: 24px;
+  width: 24px;
+  border-radius: 7px;
+  background: #ffffff;
+  cursor: pointer;
+}
+input[type=range]::-ms-track {
+  width: 100%;
+  height: 4px;
+  cursor: pointer;
+  background: transparent;
+  border-color: transparent;
+  color: transparent;
+}
+input[type=range]::-ms-fill-lower {
+  background: rgba(59, 171, 145, 0.87);
+  border: 0.4px solid #832b42;
+  border-radius: 15.2px;
+  box-shadow: 1.6px 1.6px 1px #0b1100, 0px 0px 1.6px #1b2b00;
+}
+input[type=range]::-ms-fill-upper {
+  background: rgba(63, 182, 155, 0.87);
+  border: 0.4px solid #832b42;
+  border-radius: 15.2px;
+  box-shadow: 1.6px 1.6px 1px #0b1100, 0px 0px 1.6px #1b2b00;
+}
+input[type=range]::-ms-thumb {
+  box-shadow: 2.4px 2.4px 5.1px rgba(29, 74, 140, 0.99), 0px 0px 2.4px rgba(33, 85, 161, 0.99);
+  border: 1px solid rgba(33, 242, 238, 0.1);
+  height: 24px;
+  width: 24px;
+  border-radius: 7px;
+  background: #ffffff;
+  cursor: pointer;
+  height: 4px;
+}
+input[type=range]:focus::-ms-fill-lower {
+  background: rgba(63, 182, 155, 0.87);
+}
+input[type=range]:focus::-ms-fill-upper {
+  background: rgba(70, 191, 163, 0.87);
 }
 
-.slider::-moz-range-thumb {
-    width: 25px;
-    height: 25px;
-    background: #4CAF50;
-    cursor: pointer;
+.myButton {
+	-moz-box-shadow: 0px 10px 14px -7px #276873;
+	-webkit-box-shadow: 0px 10px 14px -7px #276873;
+	box-shadow: 0px 10px 14px -7px #276873;
+	background:-webkit-gradient(linear, left top, left bottom, color-stop(0.05, #59b3a7), color-stop(1, #407a99));
+	background:-moz-linear-gradient(top, #59b3a7 5%, #407a99 100%);
+	background:-webkit-linear-gradient(top, #59b3a7 5%, #407a99 100%);
+	background:-o-linear-gradient(top, #59b3a7 5%, #407a99 100%);
+	background:-ms-linear-gradient(top, #59b3a7 5%, #407a99 100%);
+	background:linear-gradient(to bottom, #59b3a7 5%, #407a99 100%);
+	filter:progid:DXImageTransform.Microsoft.gradient(startColorstr='#59b3a7', endColorstr='#407a99',GradientType=0);
+	background-color:#59b3a7;
+	-moz-border-radius:8px;
+	-webkit-border-radius:8px;
+	border-radius:8px;
+	display:inline-block;
+	cursor:pointer;
+	color:#ffffff;
+	font-family:Trebuchet MS;
+	font-size:25px;
+	font-weight:bold;
+	padding:8px 12px;
+	text-decoration:none;
+	text-shadow:0px 1px 0px #1dc0cc;
+}
+.myButton:hover {
+	background:-webkit-gradient(linear, left top, left bottom, color-stop(0.05, #407a99), color-stop(1, #59b3a7));
+	background:-moz-linear-gradient(top, #407a99 5%, #59b3a7 100%);
+	background:-webkit-linear-gradient(top, #407a99 5%, #59b3a7 100%);
+	background:-o-linear-gradient(top, #407a99 5%, #59b3a7 100%);
+	background:-ms-linear-gradient(top, #407a99 5%, #59b3a7 100%);
+	background:linear-gradient(to bottom, #407a99 5%, #59b3a7 100%);
+	filter:progid:DXImageTransform.Microsoft.gradient(startColorstr='#407a99', endColorstr='#59b3a7',GradientType=0);
+	background-color:#407a99;
+}
+.myButton:active {
+	position:relative;
+	top:1px;
+}
+
+.buttonscontainer {
+	margin-top: 10px;
+	margin-bottom: 25px;
+}
+
+#webCam1 {
+	transform: rotate(270deg);
+}
+
+#webCam3 {
+	transform: rotate(90deg);
+}
+
+#webCam4 {
+	transform: rotate(180deg);
 }

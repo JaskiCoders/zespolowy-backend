@@ -5,7 +5,6 @@ import org.opencv.core.Mat;
 import org.opencv.video.BackgroundSubtractorMOG2;
 import org.opencv.videoio.VideoCapture;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.beans.factory.annotation.Value;
 import org.springframework.scheduling.annotation.Scheduled;
 import org.springframework.stereotype.Component;
 import org.springframework.web.bind.annotation.PathVariable;
@@ -17,11 +16,11 @@ import java.awt.image.BufferedImage;
 import static java.util.Objects.isNull;
 
 @Component
-@RestController
-public class ImageReader {
+@RestController // klasa jest kopia klasy ImageReader K.Mazur
+public class ImageReader1 {
 
     @Autowired
-    private FrameHandler frameHandler;
+    private FrameHandler1 frameHandler;
 
     static{
         System.loadLibrary(Core.NATIVE_LIBRARY_NAME);
@@ -33,13 +32,14 @@ public class ImageReader {
     ImageConverter converter = new ImageConverter();
     BackgroundSubtractorMOG2 sub = BackgroundSubstractor.createSubstrator();
 
-    @RequestMapping("/updateBgModel")
+    @RequestMapping("/updateBgModel1")
     public void updateBgModel(){
-        cap.open(1);
+        cap.open(2);
         double tres = sub.getVarThreshold();
         bgModel = matrix;
         sub = BackgroundSubstractor.createSubstrator();
         sub.setVarThreshold(tres);
+        System.out.println("Model updated.");
     }
 
     @Scheduled(fixedDelay = 1)
@@ -65,8 +65,9 @@ public class ImageReader {
         return bufferdedImage;
     }
 
-    @RequestMapping("/setThreshold/{tres}")
+    @RequestMapping("/setThreshold1/{tres}")
     public void setThreshold(@PathVariable("tres") int value){
+        System.out.println("Threshold is: "+value);
         BackgrundSubstractorConfigurator.setThreshold(sub, value);
     }
 }

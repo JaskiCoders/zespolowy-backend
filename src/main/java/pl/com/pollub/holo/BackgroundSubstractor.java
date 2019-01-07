@@ -8,7 +8,7 @@ public class BackgroundSubstractor {
     static int  history = 1000;
     static float varThreshold = 100;
     static boolean bShadowDetection = false;
-
+    // metoda wyciagajaca probke tla D.Mazur
     public static BackgroundSubtractorMOG2 createSubstrator() {
         BackgroundSubtractorMOG2 substractor = Video.createBackgroundSubtractorMOG2();
         substractor.setVarThreshold(varThreshold);

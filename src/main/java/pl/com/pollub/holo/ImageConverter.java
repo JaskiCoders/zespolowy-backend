@@ -7,6 +7,7 @@ import java.awt.image.BufferedImage;
 import java.awt.image.DataBufferByte;
 import java.awt.image.WritableRaster;
 
+// Klasa generujaca obraz pochodzacy z kamery D.Mazur
 public class ImageConverter {
 
     private Mat matrix = new Mat();

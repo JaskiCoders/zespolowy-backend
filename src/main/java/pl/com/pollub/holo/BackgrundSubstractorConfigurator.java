@@ -2,7 +2,7 @@ package pl.com.pollub.holo;
 
 import org.opencv.video.BackgroundSubtractorMOG2;
 
-
+// Klasa z konfiguracja wyciagania tla D.Mazur
 public class BackgrundSubstractorConfigurator {
 
     public static BackgroundSubtractorMOG2 setThreshold (BackgroundSubtractorMOG2 bgs, int threshold) {
