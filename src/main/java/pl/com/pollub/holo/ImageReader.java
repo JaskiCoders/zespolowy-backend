@@ -12,9 +12,13 @@ import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
+import javax.annotation.PostConstruct;
+import javax.imageio.ImageIO;
+import javax.swing.*;
 import java.awt.image.BufferedImage;
+import java.io.File;
+import java.io.IOException;
 
-import static java.util.Objects.isNull;
 
 @Component
 @RestController
@@ -22,51 +26,20 @@ public class ImageReader {
 
     @Autowired
     private FrameHandler frameHandler;
+    private BufferedImage img;
+
+    @PostConstruct
+    private void setImage() throws IOException {
+        img = ImageIO.read(new File("C:\\Mgr\\zespolowy-backend\\src\\main\\resources\\test.png"));
+    }
 
     static{
         System.loadLibrary(Core.NATIVE_LIBRARY_NAME);
     }
 
-    Mat matrix;
-    Mat bgModel;
-    VideoCapture cap = new VideoCapture();
-    ImageConverter converter = new ImageConverter();
-    BackgroundSubtractorMOG2 sub = BackgroundSubstractor.createSubstrator();
-
-    @RequestMapping("/updateBgModel")
-    public void updateBgModel(){
-        cap.open(1);
-        double tres = sub.getVarThreshold();
-        bgModel = matrix;
-        sub = BackgroundSubstractor.createSubstrator();
-        sub.setVarThreshold(tres);
-    }
-
     @Scheduled(fixedDelay = 1)
-    public BufferedImage getOneFrame() {
-        matrix = converter.getMatrix();
-        try {
-            cap.grab();
-            cap.retrieve(matrix);
-        }
-        catch(Exception e){
-            e.printStackTrace();
-        }
-        if(isNull(bgModel)){
-            updateBgModel();
-        }
-
-        Mat fgMask = bgModel;
-        sub.apply(matrix, fgMask,0);
-        Mat output = new Mat();
-        matrix.copyTo(output, fgMask);
-        BufferedImage bufferdedImage = converter.getImage(output);
-        frameHandler.frameCallback(bufferdedImage);
-        return bufferdedImage;
-    }
-
-    @RequestMapping("/setThreshold/{tres}")
-    public void setThreshold(@PathVariable("tres") int value){
-        BackgrundSubstractorConfigurator.setThreshold(sub, value);
+    public BufferedImage getOneFrame() throws IOException {
+        frameHandler.frameCallback(img);
+        return img;
     }
 }
