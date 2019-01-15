@@ -26,6 +26,8 @@ public class ImageReader {
 
     @Autowired
     private FrameHandler frameHandler;
+    @Autowired
+    private Base64Converter converter;
     private BufferedImage img;
 
     @PostConstruct
@@ -41,5 +43,13 @@ public class ImageReader {
     public BufferedImage getOneFrame() throws IOException {
         frameHandler.frameCallback(img);
         return img;
+        
     }
+
+    @RequestMapping(value = "/getFrameByRest")
+    public String getFrameByRest(){
+        return "{\"value\": \"" + converter.convertImageToBase64(img) +
+                "\" " + ",\"timestamp\": \"" + System.currentTimeMillis() + "\"}";
+    }
+
 }

@@ -1,6 +1,7 @@
 package pl.com.pollub.holo;
 
 import lombok.extern.slf4j.Slf4j;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
 import org.springframework.web.socket.TextMessage;
 import org.springframework.web.socket.WebSocketSession;
@@ -20,19 +21,23 @@ public class FrameHandler extends TextWebSocketHandler {
 
     private WebSocketSession session;
 
+    @Autowired
+    private Base64Converter converter;
+
     // metoda wysylajaca informacje przy pomocy WebSc K.Mazur
     public void frameCallback(BufferedImage inputImage) {
 
         if (session != null && session.isOpen()) { // jezeli polaczenie jest otwarte
             try {
                 session.setTextMessageSizeLimit(200000); // ustaw maksymalny limit wiadomosci
-                session.sendMessage(new TextMessage("{\"value\": \"" + convertImageToBase64(inputImage) +
+                session.sendMessage(new TextMessage("{\"value\": \"" + converter.convertImageToBase64(inputImage) +
                         "\" " + ",\"timestamp\": \"" + System.currentTimeMillis() + "\"}")); // wyslij wiadomosc zamieniajac obrazek na Base64
             } catch (Exception e) {
                 log.debug("Exception during sending message: {}", e.getMessage()); // zaloguj wyjatek
             }
         }
     }
+
 
     @Override // metoda wykonywana po zestawieniy polaczenia K.Mazur
     public void afterConnectionEstablished(WebSocketSession session) {
@@ -49,14 +54,5 @@ public class FrameHandler extends TextWebSocketHandler {
             log.info("Received:" + message.getPayload());
         }
     }
-    // metoda zamieniajaca obrazek na Base64 K.Mazur
-    private String convertImageToBase64(BufferedImage inputImage) {
-        ByteArrayOutputStream byteArrayOutputStream = new ByteArrayOutputStream();
-        try {
-            ImageIO.write(inputImage, "png", byteArrayOutputStream);
-        } catch (IOException e) {
-            log.debug("Exception during converting image: {}", e.getMessage());
-        }
-        return DatatypeConverter.printBase64Binary(byteArrayOutputStream.toByteArray());
-    }
+
 }
