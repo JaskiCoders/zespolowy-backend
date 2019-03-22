@@ -32,7 +32,7 @@ public class ImageReader {
 
     @PostConstruct
     private void setImage() throws IOException {
-        img = ImageIO.read(new File("C:\\Mgr\\zespolowy-backend\\src\\main\\resources\\test.png"));
+        img = ImageIO.read(new File("C:\\Mgr\\zespolowy-backend\\src\\main\\resources\\500kb.png"));
     }
 
     static{

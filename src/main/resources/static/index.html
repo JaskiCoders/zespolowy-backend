@@ -11,7 +11,7 @@
 
 <body>
 <div class="slidecontainer">
-    <input  id="threshold" type="range" min="0" max="1000" value="500" class="slider">
+    <input  id="threshold" type="range" min="0" max="1" value="500" class="slider">
 </div>
 <div class="container">
     <div id="alert"></div>
@@ -80,28 +80,33 @@
                 alert("WebSocket NOT supported by your Browser!");
             }
         }
-
+    var restTimestampSum = 0;
     function restTest() {
-            var timestampSum = 0;
-            var timestampCounter = 0;
-            var xmlHttp = new XMLHttpRequest();
-            xmlHttp.open("GET", "http://localhost:8088/getFrameByRest", false); // false for synchronous request
-            xmlHttp.send(null);
-            var jsonData = JSON.parse(xmlHttp.responseText);
-            average(jsonData.timestamp)
-            document.getElementById("img1").src = "data:image/jpg;base64," + jsonData.value;
+        var restCounter = 1;
+        while(restCounter <= 100){
+            getFrameByRest(restCounter);
+            restCounter++;
+        }
+    }
 
-            function average(timestamp) {
-                var date = new Date();
-                var currentTime = date.getTime();
-                timestampSum += currentTime - timestamp;
-                if (timestampCounter == 100) {
-                    console.log(timestampSum / 100)
-                    timestampSum = 0;
-                    timestampCounter = 0;
-                }
-                timestampCounter++;
+    function getFrameByRest(restCounter){
+        var xmlHttp = new XMLHttpRequest();
+        xmlHttp.open("GET", "http://localhost:8088/getFrameByRest", false); // false for synchronous request
+        xmlHttp.send(null);
+        var jsonData = JSON.parse(xmlHttp.responseText);
+        average(jsonData.timestamp)
+        document.getElementById("img1").src = "data:image/jpg;base64," + jsonData.value;
+
+        function average(timestamp) {
+            var date = new Date();
+            var currentTime = date.getTime();
+            restTimestampSum += currentTime - timestamp;
+            if (restCounter == 100) {
+                console.log(restTimestampSum / 100)
+                restTimestampSum = 0;
+                restCounter = 0;
             }
+        }
     }
 
     var runButton = document.getElementById("runWS");
